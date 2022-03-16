@@ -19,28 +19,57 @@ var generateBtn = document.querySelector("#generate");
   // THEN the password is either displayed in an alert or written to the page
 
 function generatePassword() {
-  var password;
+  var password ="";
   var length = prompt("How many characters would you like your password to contain?");
 
+  // Ask user for the length of the password and check that is is at least 8 characters and no more than 128 character
   if (length<8) {
     window.alert("Password must be at least 8 characters")
   } else if (length > 128) {
     window.alert("Password must be less than 129 characters")
   }
 
-  var characters = [" !\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~", "0123456789", 
+  // Creating an array with all possible characters
+  var characterBank = [" !\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~", "0123456789", 
     "abcdefghijklmnopqrstuvwxyz", "ABCDEFGHIJKLMNOPQRSTUVWXYZ"];
 
   var characterType = ["special chacters", "numbers", "lower case letters", "upper case letters"]
   
   var wanted = [];
 
+  //  Confirm whether or not to include lowercase, uppercase, numberic, and/or special characters
   for (i = 0; i < characterType.length; i++) {
     wanted[i] = window.confirm("Click OK to confirm including " + characterType[i]);
   }
 
+  // Check that at least one character type is selected
+  if (wanted.length<1) {
+    window.alert("Must select at least one character type")
+  }
+
+  // Create a new array with just the characters we want for the password
+  var characters = [];
+
+  for (i=0;i<wanted.length; i++) {
+    if (wanted[i]) {
+      characters.push(characterBank[i]);
+    }
+  }
+
+  // Generate characters for the password
+
+  // Make sure that at least one of each character type in included in the password
+  for (i=0;i<characters.length; i++) {
+    var item = characters [i];
+    var char = item[Math.floor(Math.random() * item.length)]; 
+    password = password + char;
+    length = length -1;
+  }
+  // Generate random characters for password till it reaches the desired length
   for (i=0; i< length; i++) {
-    // TODO: generate random characters for password
+    var item = characters[Math.floor(Math.random() * characters.length)];
+    var char = item[Math.floor(Math.random() * item.length)]; 
+    password = password + char;
   }
 
   return password;

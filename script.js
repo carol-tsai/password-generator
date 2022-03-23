@@ -25,8 +25,10 @@ function generatePassword() {
   // Ask user for the length of the password and check that is is at least 8 characters and no more than 128 character
   if (length<8) {
     window.alert("Password must be at least 8 characters")
+    return;
   } else if (length > 128) {
     window.alert("Password must be less than 129 characters")
+    return;
   }
 
   // Creating an array with all possible characters
@@ -45,6 +47,7 @@ function generatePassword() {
   // Check that at least one character type is selected
   if (wanted.length<1) {
     window.alert("Must select at least one character type")
+    return;
   }
 
   // Create a new array with just the characters we want for the password
